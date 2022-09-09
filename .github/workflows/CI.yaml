@@ -12,16 +12,30 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-.idea/
-*.iml
-.DS_Store
-*~
-__pycache__
-build/
-dist/
-*.pyc
-**/*.egg-info/
-**/*venv*/
-.vscode/
-engine_protocol/
-assets/datasets
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 18 * * *'
+
+concurrency:
+  group: CI-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  license-and-lint:
+    name: License and Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source codes
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Check License
+        uses: apache/skywalking-eyes/header@442d4621d10ae9e92a859d873e6e63664622a50d
+      - name: Python Linters
+        run: make lint
