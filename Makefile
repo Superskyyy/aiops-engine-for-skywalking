@@ -40,9 +40,18 @@ prune-dataset: # remove all downloaded datasets
 	poetry run python -m tools.sample_data_manager clean --purge
 
 # flake8 configurations should go to the file setup.cfg
-lint:
+
+lint-setup:
 	poetry install --only linters
+
+lint: lint-setup
 	poetry run python -m flake8
+
+# fix problems described in CodingStyle.md - verify outcome with extra care
+lint-fix: lint-setup
+	$(VENV)/isort .
+	$(VENV)/unify -r --in-place .
+	$(VENV)/flynt -tc -v .
 
 # todo make this work on windows
 clean:
