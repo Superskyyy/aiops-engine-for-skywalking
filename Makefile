@@ -41,6 +41,7 @@ prune-dataset: # remove all downloaded datasets
 
 # flake8 configurations should go to the file setup.cfg
 lint:
+	poetry install --only linters
 	poetry run python -m flake8
 
 # todo make this work on windows

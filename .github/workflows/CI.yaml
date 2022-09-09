@@ -37,5 +37,12 @@ jobs:
           submodules: true
       - name: Check License
         uses: apache/skywalking-eyes/header@442d4621d10ae9e92a859d873e6e63664622a50d
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.10
       - name: Python Linters
-        run: make lint
+        run: |
+          pip install -U pip setuptools
+          pip install poetry
+          make lint

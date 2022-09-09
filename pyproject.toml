@@ -45,10 +45,17 @@ scikit-learn = "^1.0.2"
 scipy = "^1.9.0"
 numpy = "^1.23.1"
 
-
 [tool.poetry.dev-dependencies]
 PySnooper = "^1.1.1"
-# LINTERS
+# TESTING
+tox = "^3.25.1"
+tqdm = "^4.64.0"
+yappi = "^1.3.5"
+
+[tool.poetry.group.linters]
+[tool.poetry.group.linters.dependencies]
+# used by CI and dev check
+# poetry install --only linters
 flake8 = "^4.0.1"
 unify = "^0.5"
 flynt = "^0.76"
@@ -61,10 +68,7 @@ flake8-docstrings = "^1.6.0"
 flake8-bugbear = "^22.4.25"
 flake8-comprehensions = "^3.8.0"
 flake8-2020 = "^1.6.1"
-# TESTING
-tox = "^3.25.1"
-tqdm = "^4.64.0"
-yappi = "^1.3.5"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
