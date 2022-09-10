@@ -35,6 +35,18 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
 
 from math import log
 
@@ -96,10 +108,10 @@ class SpotDetector(BaseDetector):
             us = u(s)
             vs = v(s)
             jac_us = np.divide(1, t, out=np.zeros_like(a), where=t != 0) * (
-                1 - vs
+                    1 - vs
             )
             jac_vs = np.divide(1, t, out=np.zeros_like(a), where=t != 0) * (
-                -vs + np.mean(1 / s**2)
+                    -vs + np.mean(1 / s ** 2)
             )
             return us * jac_vs + vs * jac_us
 
@@ -120,7 +132,7 @@ class SpotDetector(BaseDetector):
         )
         c = 2 * np.divide(
             Ymean - Ym,
-            Ym**2,
+            Ym ** 2,
             out=np.array(np.zeros_like(Ym) + epsilon),
             where=Ym != 0,
         )
@@ -201,7 +213,7 @@ class SpotDetector(BaseDetector):
             i = 0
             for x in X:
                 fx = f(x)
-                g = g + fx**2
+                g = g + fx ** 2
                 j[i] = 2 * fx * jac(x)
                 i = i + 1
             return g, j
@@ -240,8 +252,8 @@ class SpotDetector(BaseDetector):
         if gamma != 0:
             tau = gamma / sigma
             L = (
-                -n * log(sigma)
-                - (1 + (1 / gamma)) * (np.log(1 + tau * Y)).sum()
+                    -n * log(sigma)
+                    - (1 + (1 / gamma)) * (np.log(1 + tau * Y)).sum()
             )
         else:
             L = n * (1 + log(abs(Y.mean()) + 1e-8))
@@ -349,7 +361,7 @@ class SpotDetector(BaseDetector):
 
     def score(self, X: np.ndarray) -> float:
 
-        hist_mean = np.mean(self.init_data[-self._window_len :])
+        hist_mean = np.mean(self.init_data[-self._window_len:])
 
         normal_X = float(X) - hist_mean
 
@@ -374,7 +386,6 @@ class SpotDetector(BaseDetector):
             )
         else:
             score = 0.0
-
 
         # Here, we can report the upper and lower bound of the scores.
 
