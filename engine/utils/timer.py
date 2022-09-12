@@ -23,6 +23,18 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
 
 
 """
@@ -41,7 +53,10 @@ import wrapt
 def timing(wrapped: callable = None, show_args: bool = False, repeat: int = 100) -> callable:
     """
     Decorator that reports the execution time of any function.
-    NOTE: do not use on recursive functions
+    NOTE:
+    Do not use on recursive functions,
+    Careful with functions that can alter external state, such
+    as passed generator, files, and network connections.
     :param wrapped: param wrapped: function to be decorated
     :param show_args: If True, show the arguments of the function.
     :param repeat: repeat N times
